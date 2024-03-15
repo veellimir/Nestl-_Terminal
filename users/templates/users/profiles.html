@@ -1,0 +1,51 @@
+{% extends 'info/base.html' %}
+
+{% block content %}
+    <h1 class="title-h1">Сотрудники склада</h1>
+    <article class="chart">
+        <div class="category_employee">
+
+            {% if cat_selected == 0 %}
+                <li class="selected">Все сотрудники</li>
+            {% else %}
+                <a href="{% url 'profiles' %}"><li>Все сотрудники</li></a>
+            {% endif %}
+
+            {% for employee in cat_employee %}
+
+                {% if employee.profiles_count > 0 %}
+                    {% if employee.pk == cat_selected %}
+                        <li class="selected">{{ employee.category_name }}</li>
+                    {% else %}
+                        <a href="{{ employee.get_absolute_url }}"><li>{{ employee.category_name }}</li></a>
+                    {% endif %}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        <ul>
+            {% for profile in profiles %}
+            <a href="{{ profile. }}">
+                <li class="employee">
+                    <div>
+                        <img src="{{ profile.photo.url }}" alt="Изображения пользователя" class="image_profile">
+                    </div>
+                    <h2>{{ profile.name|slice:20 }}</h2>
+                    <h2>{{ profile.employee_category }}</h2>
+            
+                    {% if profile.collected %}    
+                        <h2>{{ profile.collected }} собр./кор.</h2>
+                    {% elif profile.transported %}
+                        <h2>{{ profile.transported }} пер-щ./пал.</h2>    
+                    {% elif profile.discharge %}
+                        <h2>{{ profile.discharge }} маш./выгр.</h2>
+                    {% elif profile.shipment %}
+                        <h2>{{ profile.shipment }} маш./загр.</h2>
+                    {% endif %}
+                </li>
+            </a>
+            {% endfor %}
+        </ul>
+    </article>
+</div>
+{% endblock %}

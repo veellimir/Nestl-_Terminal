@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'info/style.css' %}">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <header>
+        <img class="logo" src="{% static 'info/media/logo.png' %}" alt="Лого">
+        <nav class="navigation">
+            <ul>
+                <li><a href="{% url 'home_info' %}">Статистика за сегодня</a></li>
+                <!-- <li><a href="">Статистика за месяц</a></li> -->
+                <li><a href="{% url 'profiles' %}">Сотрудники</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+    <main>
+        
+    </main>
+    {% endblock %}   
+
+</body>
+</html>

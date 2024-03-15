@@ -1,0 +1,67 @@
+{% extends 'info/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="content">
+    <div class="info">
+        <div class="info_center">
+            {% for chart in chart_info %}
+                <h2>Цели на {{ chart.created_at|date:'d.m.Y' }} г.</h2>
+
+                {% if chart.assembling >= 40000 %} 
+                    <h3>Cборка: <span class="task_assembling task_ganger">{{ chart.assembling }}</span> коробов</h3>
+                {% elif chart.assembling >= 25000 %}    
+                    <h3>Cборка: <span class="task_assembling task_middle">{{ chart.assembling }}</span> коробов</h3>
+                {% else %}
+                    <h3>Cборка: <span class="task_assembling task_light">{{ chart.assembling }}</span> коробов</h3>
+                {% endif %}
+
+                {% if chart.transported_pallet >= 10000 %}
+                    <h3>Перемещение: <span class="task_ganger">{{ chart.transported_pallet }}</span> паллет</h3>
+                {% elif chart.transported_pallet >= 5000 %}
+                    <h3>Перемещение: <span class="task_middle">{{ chart.transported_pallet }}</span> паллет</h3>
+                {% else %}
+                    <h3>Перемещение: <span class="task_light">{{ chart.transported_pallet }}</span> паллет</h3>
+                {% endif %}
+
+                {% if chart.coming_car >= 30 %}
+                    <h3>Выгрузка: <span class="task_ganger">{{ chart.coming_car }}</span> машин/ы</h3>
+                {% elif chart.coming_car >= 20 %}    
+                    <h3>Выгрузка: <span class="task_middle">{{ chart.coming_car }}</span> машин/ы</h3>
+                {% else %}
+                    <h3>Выгрузка: <span class="task_light">{{ chart.coming_car }}</span> машин/ы</h3>
+                {% endif %}
+
+                {% if chart.out_car >= 30 %}
+                    <h3>Загрузка: <span class="task_ganger">{{ chart.out_car }}</span> машин/ы</h3>
+                {% elif chart.out_car >= 20 %}
+                    <h3>Загрузка: <span class="task_middle">{{ chart.out_car }}</span> машин/ы</h3>
+                {% else %}
+                    <h3>Загрузка: <span class="task_light">{{ chart.out_car }}</span> машин/ы</h3>
+                {% endif %}    
+
+                
+            {% endfor %}    
+        </div>
+    </div>
+    <article class="chart">
+        <div class="chart_chart__contentDescription">
+            <p>Собрано</p>
+            <p>Перевезено</p>
+            <p>Выгружено</p>
+            <p>Загружено</p>
+            <p>Пр.работы</p>
+        </div>
+        <div class="chart_chart__content">
+            <div class="all_style_chart chart_collected"><p>{{ total_collected }}</p></div>
+            <div class="all_style_chart chart_transported"><p>{{ total_transported }}</p></div>
+            <div class="all_style_chart"><p>{{ total_discharge }}</p></div>
+            <div class="all_style_chart"><p>{{ total_shipment }}</p></div>
+            <div class="all_style_chart"><p>{{ total_others }}</p></div>
+        </div>
+    </article>
+</div>
+
+<script src="{% static 'info/js/chart.js' %}"></script>
+{% endblock %}
