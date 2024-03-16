@@ -25,7 +25,7 @@
         </div>
         <ul>
             {% for profile in profiles %}
-            <a href="{{ profile. }}">
+            <a href="{{ profile.get_absolute_url }}">
                 <li class="employee">
                     <div>
                         <img src="{{ profile.photo.url }}" alt="Изображения пользователя" class="image_profile">

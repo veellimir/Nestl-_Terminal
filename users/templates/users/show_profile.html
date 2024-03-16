@@ -2,6 +2,45 @@
 
 
 {% block content %}
+<h1 class="data_employee">Данные о сотруднике</h1>
+<div class="wrapper-user__show">
+    <div class="user_image">
+        <img src="{{ profile.photo.url }}" alt="Изображения пользователя">
+    </div>
+    <div class="user_info__text">
+        <h1>{{ profile.employee_category }} <span>{{ profile.name }}</span></h1>
 
+        {% if profile.collected > 1 %}
+            <h2>Собрано коробов: {{ profile.collected }}</h2>
+        {% else %}
+            <h2>Собрано коробов: 0</h2>
+        {% endif %}    
 
+        {% if profile.transported > 1 %}
+            <h2>Перемещено паллет: {{ profile.transported }}</h2>    
+        {% else %}
+            <h2>Перемещено паллет: 0</h2>    
+        {% endif %} 
+
+        {% if profile.discharge > 1 %}
+            <h2>Выгружено машин: {{ profile.discharge }}</h2>
+        {% else %}
+            <h2>Выгружено машин: 0</h2>
+        {% endif %} 
+
+        {% if profile.shipment > 1 %}
+            <h2>Загрузено машин: {{ profile.shipment }}</h2>
+        {% else %}
+            <h2>Загрузено машин: 0</h2>
+        {% endif %} 
+
+        {% if profile.others %}
+            <h2>Затраченно время на перерывы {{ profile.others }} час/ов</h2>
+        {% else %}
+            <h2>Затраченно время на перерывы 0 часов</h2>
+        {% endif %} 
+
+        <h3>Дата трудоустройства: {{ profile.time_employment|date:'d.m.Y' }} г.</h3>
+    </div>
+</div>
 {% endblock %}

@@ -21,4 +21,8 @@ class InfoPage(ListView):
             total_others=Sum('others')
         )
         context.update(info_aggregate)
+
+        profiles = Profile.objects.all()
+        context['profiles'] = profiles
+
         return context

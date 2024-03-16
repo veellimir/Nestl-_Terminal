@@ -18,13 +18,6 @@ class ProfileInfo(ListView, DataMixim):
         return context
 
 
-class ShowProfile(DetailView):
-    model = Profile
-    template_name = 'users/show_profile.html'
-    slug_url_kwarg = 'show_user_slug'
-    context_object_name = 'show_prof'
-
-
 class ProfileCategory(DataMixim, ListView):
     model = Profile
     template_name = 'users/profiles.html'
@@ -42,4 +35,16 @@ class ProfileCategory(DataMixim, ListView):
             title='Категория - ' + str(get_employee.category_name),
             cat_selected=get_employee.pk
         )
+        return dict(list(c_def.items()) + list(context.items()))
+
+
+class ShowProfile(DataMixim, DetailView):
+    model = Profile
+    template_name = 'users/show_profile.html'
+    slug_url_kwarg = 'user_slug'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context_data(title=context['profile'].name)
         return dict(list(c_def.items()) + list(context.items()))
