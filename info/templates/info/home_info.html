@@ -6,61 +6,106 @@
 <div class="content">
     <div class="info">
         <div class="info_center">
-            {% for chart in chart_info %}
-                <h2>Цели на {{ chart.created_at|date:'d.m.Y' }} г.</h2>
+            {% if chart_info %}
 
-                {% if chart.assembling >= 40000 %} 
-                    <h3>Cборка: <span class="task_assembling task_ganger">{{ chart.assembling }}</span> коробов</h3>
-                {% elif chart.assembling >= 25000 %}    
-                    <h3>Cборка: <span class="task_assembling task_middle">{{ chart.assembling }}</span> коробов</h3>
-                {% else %}
-                    <h3>Cборка: <span class="task_assembling task_light">{{ chart.assembling }}</span> коробов</h3>
-                {% endif %}
+                {% for chart in chart_info %}
+                    <h2>Цели на {{ chart.created_at|date:'d.m.Y' }} г.</h2>
 
-                {% if chart.transported_pallet >= 10000 %}
-                    <h3>Перемещение: <span class="task_ganger">{{ chart.transported_pallet }}</span> паллет</h3>
-                {% elif chart.transported_pallet >= 5000 %}
-                    <h3>Перемещение: <span class="task_middle">{{ chart.transported_pallet }}</span> паллет</h3>
-                {% else %}
-                    <h3>Перемещение: <span class="task_light">{{ chart.transported_pallet }}</span> паллет</h3>
-                {% endif %}
+                    {% if chart.assembling >= 40000 %} 
+                        <h3>Cборка: <span class="task_assembling task_ganger">{{ chart.assembling }}</span> коробов</h3>
+                    {% elif chart.assembling >= 25000 %}    
+                        <h3>Cборка: <span class="task_assembling task_middle">{{ chart.assembling }}</span> коробов</h3>
+                    {% else %}
+                        <h3>Cборка: <span class="task_assembling task_light">{{ chart.assembling }}</span> коробов</h3>
+                    {% endif %}
 
-                {% if chart.coming_car >= 30 %}
-                    <h3>Выгрузка: <span class="task_ganger">{{ chart.coming_car }}</span> машин/ы</h3>
-                {% elif chart.coming_car >= 20 %}    
-                    <h3>Выгрузка: <span class="task_middle">{{ chart.coming_car }}</span> машин/ы</h3>
-                {% else %}
-                    <h3>Выгрузка: <span class="task_light">{{ chart.coming_car }}</span> машин/ы</h3>
-                {% endif %}
+                    {% if chart.transported_pallet >= 10000 %}
+                        <h3>Перемещение: <span class="task_transported_pallet task_ganger">{{ chart.transported_pallet }}</span> паллет</h3>
+                    {% elif chart.transported_pallet >= 5000 %}
+                        <h3>Перемещение: <span class="task_transported_pallet task_middle">{{ chart.transported_pallet }}</span> паллет</h3>
+                    {% else %}
+                        <h3>Перемещение: <span class="task_transported_pallet task_light">{{ chart.transported_pallet }}</span> паллет</h3>
+                    {% endif %}
 
-                {% if chart.out_car >= 30 %}
-                    <h3>Загрузка: <span class="task_ganger">{{ chart.out_car }}</span> машин/ы</h3>
-                {% elif chart.out_car >= 20 %}
-                    <h3>Загрузка: <span class="task_middle">{{ chart.out_car }}</span> машин/ы</h3>
-                {% else %}
-                    <h3>Загрузка: <span class="task_light">{{ chart.out_car }}</span> машин/ы</h3>
-                {% endif %}    
+                    {% if chart.coming_car >= 30 %}
+                        <h3>Выгрузка: <span class="task_coming_car task_ganger">{{ chart.coming_car }}</span> машин/ы</h3>
+                    {% elif chart.coming_car >= 20 %}    
+                        <h3>Выгрузка: <span class="task_coming_car task_middle">{{ chart.coming_car }}</span> машин/ы</h3>
+                    {% else %}
+                        <h3>Выгрузка: <span class="task_coming_car task_light">{{ chart.coming_car }}</span> машин/ы</h3>
+                    {% endif %}
 
-                
-            {% endfor %}    
+                    {% if chart.out_car >= 30 %}
+                        <h3>Загрузка: <span class="task_out_car task_ganger">{{ chart.out_car }}</span> машин/ы</h3>
+                    {% elif chart.out_car >= 20 %}
+                        <h3>Загрузка: <span class="task_out_car task_middle">{{ chart.out_car }}</span> машин/ы</h3>
+                    {% else %}
+                        <h3>Загрузка: <span class="task_out_car task_light">{{ chart.out_car }}</span> машин/ы</h3>
+                    {% endif %} 
+                    <br>
+                    <br>
+                    <h3>Общее время перерывов учитывается время каждого сотрудника<span class="task_other task_ganger"> 20</span> ч</h3>
+
+                {% endfor %}   
+
+            {% else %}
+                <h2 class="none_tasks">На задачи не обновились</h2>
+            {% endif %}
         </div>
     </div>
-    <article class="chart">
-        <div class="chart_chart__contentDescription">
-            <p>Собрано</p>
-            <p>Перевезено</p>
-            <p>Выгружено</p>
-            <p>Загружено</p>
-            <p>Пр.работы</p>
+    {% if chart_info %}
+        <article class="chart">
+            <div class="chart_chart__contentDescription">
+                <p>Собрано</p>
+                <p>Перевезено</p>
+                <p>Выгружено</p>
+                <p>Загружено</p>
+                <p>Перерывы</p>
+            </div>
+            <div class="chart_chart__content">
+                {% if total_collected %}
+                    <div class="all_style_chart chart_collected"><p>{{ total_collected }}</p></div>
+                {% else %}
+                    <div class="all_style_chart chart_collected"><p>0</p></div>    
+                {% endif %}
+
+                {% if total_transported %}
+                    <div class="all_style_chart chart_transported"><p>{{ total_transported }}</p></div>
+                {% else %}    
+                    <div class="all_style_chart chart_transported"><p>0</p></div>
+                {% endif %}
+
+                {% if total_discharge %}    
+                    <div class="all_style_chart chart_discharge"><p>{{ total_discharge }}</p></div>
+                {% else %}
+                    <div class="all_style_chart chart_discharge"><p>0</p></div>
+                {% endif %}
+                
+                {% if total_shipment %}
+                    <div class="all_style_chart chart_shipment"><p>{{ total_shipment }}</p></div>
+                {% else %}    
+                    <div class="all_style_chart chart_shipment"><p>0</p></div>
+                {% endif %}
+
+                {% if total_others %}
+                    <div class="all_style_chart chart_others"><p>{{ total_others }}</p></div>
+                {% else %}    
+                    <div class="all_style_chart chart_others"><p>0</p></div>
+                {% endif %}    
+            </div>
+            
+        </article>
+        <div class="wrapper-profile_warning">
+            <h2>Нарушители перерывов !</h2>
+            {% for profile in profiles %}
+                {% if profile.others > 3 %}
+                <h3>{{ profile.name }}: <span>{{ profile.others }}</span> ч.</h3>
+                {% endif %}
+            {% endfor %}
         </div>
-        <div class="chart_chart__content">
-            <div class="all_style_chart chart_collected"><p>{{ total_collected }}</p></div>
-            <div class="all_style_chart chart_transported"><p>{{ total_transported }}</p></div>
-            <div class="all_style_chart"><p>{{ total_discharge }}</p></div>
-            <div class="all_style_chart"><p>{{ total_shipment }}</p></div>
-            <div class="all_style_chart"><p>{{ total_others }}</p></div>
-        </div>
-    </article>
+    {% else %}
+        <h1 class="loading_task">Ожидание задач... </h1>
+    {% endif %}
 </div>
 
 <script src="{% static 'info/js/chart.js' %}"></script>
