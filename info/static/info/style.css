@@ -46,6 +46,7 @@ header {
     margin-left: 20px;
     margin-top: -31px;
     filter: invert(100%) brightness(550%);
+    opacity: 0;
 }
 .navigation {position: absolute; right: 200px;}
 
@@ -186,6 +187,7 @@ header {
     width: 70px;
     height: 70px;
     border-radius: 120px;
+    object-fit: cover;
 }
 .selected {
     background: var(--selected); 

@@ -15,12 +15,17 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = ('name', 'profile_admin_image', 'is_public')
     list_display_links = ('name', )
 
+    search_fields = ('name', )
+    list_filter = ('name', )
     list_editable = ('is_public', )
+
+    save_on_top = True
 
     fields = (
         'name',
         'slug',
         'profile_admin_image',
+        'photo',
         'collected',
         'transported',
         'discharge',
