@@ -1,0 +1,20 @@
+:root {
+    --white: #fff;
+    --main_color: #007CBA;
+    --light: #013220;
+}
+
+#header,
+nav .breadcrumbs,
+.module caption,
+.button,
+#changelist-filter h2 {background: var(--main_color) !important;}
+
+.current-model {background: var(--light) !important;}
+
+a {color: var(--white) !important;}
+
+input[type="submit"] {
+    background: var(--main_color);
+}
+.default {background: var(--light) !important;}
